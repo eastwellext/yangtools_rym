@@ -17,7 +17,7 @@ import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier.AugmentationIdentifier;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier.PathArgument;
 import org.opendaylight.yangtools.yang.data.api.schema.AnydataNode;
-import org.opendaylight.yangtools.yang.data.api.schema.AnyxmlNode;
+import org.opendaylight.yangtools.yang.data.api.schema.AnyXmlNode;
 import org.opendaylight.yangtools.yang.data.api.schema.LeafNode;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 import org.opendaylight.yangtools.yang.data.api.schema.tree.ConflictingModificationAppliedException;
@@ -65,7 +65,7 @@ abstract class SchemaAwareApplyOperation<T extends WithStatus> extends Modificat
         } else if (schemaNode instanceof AnyDataSchemaNode) {
             return new ValueNodeModificationStrategy<>(AnydataNode.class, (AnyDataSchemaNode) schemaNode);
         } else if (schemaNode instanceof AnyXmlSchemaNode) {
-            return new ValueNodeModificationStrategy<>(AnyxmlNode.class, (AnyXmlSchemaNode) schemaNode);
+            return new ValueNodeModificationStrategy<>(AnyXmlNode.class, (AnyXmlSchemaNode) schemaNode);
         }
         throw new IllegalArgumentException("Not supported schema node type for " + schemaNode.getClass());
     }

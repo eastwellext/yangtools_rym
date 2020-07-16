@@ -18,7 +18,7 @@ import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier.PathArgum
  * NormalizedNode model.
  *
  * <p>
- * This interface should not be implemented directly, but rather further specialized, like {@link AnyxmlNode}.
+ * This interface should not be implemented directly, but rather further specialized, like {@link AnyXmlNode}.
  *
  * @param <K> Local identifier of node
  * @param <V> Value type, uniquely identifying the object model used for values

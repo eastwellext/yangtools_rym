@@ -33,17 +33,17 @@ import org.opendaylight.yangtools.yang.xpath.api.YangQNameExpr;
 import org.opendaylight.yangtools.yang.xpath.api.YangXPathAxis;
 import org.opendaylight.yangtools.yang.xpath.api.YangXPathMathMode;
 import org.opendaylight.yangtools.yang.xpath.api.YangXPathMathSupport;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.EqQuotedStringContext;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.InstanceIdentifierContext;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.KeyPredicateContext;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.KeyPredicateExprContext;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.LeafListPredicateContext;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.LeafListPredicateExprContext;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.NodeIdentifierContext;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.PathArgumentContext;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.PosContext;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.PredicateContext;
-import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser.QuotedStringContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.EqQuotedStringContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.InstanceIdentifierContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.KeyPredicateContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.KeyPredicateExprContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.LeafListPredicateContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.LeafListPredicateExprContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.NodeIdentifierContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.PathArgumentContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.PosContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.PredicateContext;
+import org.opendaylight.yangtools.yang.xpath.impl.instanceIdentifierParser1.QuotedStringContext;
 
 abstract class InstanceIdentifierParser {
     static final class Base extends InstanceIdentifierParser {
@@ -91,7 +91,7 @@ abstract class InstanceIdentifierParser {
 
     final Absolute interpretAsInstanceIdentifier(final YangLiteralExpr expr) throws XPathExpressionException {
         final xpathLexer lexer = new xpathLexer(CharStreams.fromString(expr.getLiteral()));
-        final instanceIdentifierParser parser = new instanceIdentifierParser(new CommonTokenStream(lexer));
+        final instanceIdentifierParser1 parser = new instanceIdentifierParser1(new CommonTokenStream(lexer));
         final CapturingErrorListener listener = new CapturingErrorListener();
         lexer.removeErrorListeners();
         lexer.addErrorListener(listener);
@@ -137,7 +137,7 @@ abstract class InstanceIdentifierParser {
                     .getChild(LeafListPredicateExprContext.class, 0), EqQuotedStringContext.class, 1))));
         } else if (first instanceof PosContext) {
             return ImmutableSet.of(YangBinaryOperator.EQUALS.exprWith(FunctionSupport.POSITION,
-                mathSupport.createNumber(((PosContext) first).getToken(instanceIdentifierParser.PositiveIntegerValue, 0)
+                mathSupport.createNumber(((PosContext) first).getToken(instanceIdentifierParser1.PositiveIntegerValue, 0)
                     .getText())));
         }
 
@@ -160,11 +160,11 @@ abstract class InstanceIdentifierParser {
     }
 
     private static String verifyIdentifier(final NodeIdentifierContext expr, final int child) {
-        return verifyToken(expr, child, instanceIdentifierParser.Identifier).getText();
+        return verifyToken(expr, child, instanceIdentifierParser1.Identifier).getText();
     }
 
     private static YangLiteralExpr parseEqStringValue(final EqQuotedStringContext expr) {
         return YangLiteralExpr.of(verifyToken(getChild(expr, QuotedStringContext.class, expr.getChildCount() - 1), 1,
-            instanceIdentifierParser.STRING).getText());
+            instanceIdentifierParser1.STRING).getText());
     }
 }
