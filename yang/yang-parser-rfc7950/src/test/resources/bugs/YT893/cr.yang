@@ -3,7 +3,8 @@ module cr {
     prefix cr;
 
     list foo {
-        unique "ab";
+        unique "a
+b";
 
         leaf a {
             type string;
